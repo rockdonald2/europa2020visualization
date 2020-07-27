@@ -1,0 +1,32 @@
+{
+  "name": "europa2020visualization",
+  "version": "1.0.0",
+  "description": "Visualizing Europa 2020 indicators, made with D3.js.",
+  "main": "index.js",
+  "scripts": {
+    "watch:sass": "node-sass static/scss/main.scss static/css/style.css -w",
+    "server": "live-server",
+    "start": "npm-run-all --parallel watch:sass server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rockdonald2/europa2020visualization.git"
+  },
+  "keywords": [
+    "D3",
+    "viz",
+    "Europa",
+    "2020"
+  ],
+  "author": "Lukács Zsolt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rockdonald2/europa2020visualization/issues"
+  },
+  "homepage": "https://github.com/rockdonald2/europa2020visualization#readme",
+  "devDependencies": {
+    "live-server": "^1.2.1",
+    "node-sass": "^4.14.1",
+    "npm-run-all": "^4.1.5"
+  }
+}
