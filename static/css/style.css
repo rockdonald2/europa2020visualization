@@ -1,0 +1,131 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:ital,wght@0,300;0,700;1,300&display=swap");
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit; }
+
+html {
+  font-size: 10px; }
+
+body {
+  font-family: 'Open Sans Condensed', sans-serif;
+  background-color: #f5f6fa;
+  color: #2f3640; }
+
+.chart {
+  width: 100rem;
+  margin: 0 auto;
+  position: relative; }
+
+.wrapper {
+  width: 100%;
+  margin-top: 5rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between; }
+  .wrapper #title {
+    font-size: 4.8rem;
+    text-align: center; }
+  .wrapper #info {
+    text-align: right;
+    font-size: 2.4rem;
+    max-width: 60%; }
+
+.target {
+  margin-top: 10rem; }
+  .target--header {
+    display: inline-block;
+    font-size: 2.6rem;
+    border-top: 1px solid #353b48;
+    padding-top: 1rem; }
+  .target--description {
+    margin-top: 2.5rem;
+    font-size: 1.8rem;
+    text-align: right;
+    max-width: 70%;
+    margin-left: auto; }
+  .target--chart {
+    position: relative; }
+
+#firstT .target--chart {
+  height: 165rem; }
+  #firstT .target--chart svg {
+    margin-top: 2.5rem; }
+
+#firstT .target--chart--tooltip {
+  color: #fff;
+  position: absolute;
+  left: -9999px;
+  pointer-events: none;
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+  padding: 1rem;
+  border-radius: 5px;
+  background-color: #222;
+  text-align: center;
+  transition: none;
+  font-size: 1.6rem; }
+  #firstT .target--chart--tooltip::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -10px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent #222 transparent transparent; }
+  #firstT .target--chart--tooltip__p p {
+    display: flex;
+    align-items: center; }
+    #firstT .target--chart--tooltip__p p:nth-of-type(1) .target--chart--tooltip__p--circle {
+      background-color: #c6dbef; }
+    #firstT .target--chart--tooltip__p p:nth-of-type(2) .target--chart--tooltip__p--circle {
+      background-color: #6baed6; }
+    #firstT .target--chart--tooltip__p p:nth-of-type(3) .target--chart--tooltip__p--circle {
+      background-color: #2171b5; }
+    #firstT .target--chart--tooltip__p p:nth-of-type(4) .target--chart--tooltip__p--circle {
+      background-color: #08306b; }
+    #firstT .target--chart--tooltip__p p:nth-of-type(5) .target--chart--tooltip__p--circle {
+      background-color: green; }
+  #firstT .target--chart--tooltip__p--circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 1rem; }
+  #firstT .target--chart--tooltip__p--value {
+    margin-left: 1rem; }
+
+#secondT .target--chart {
+  height: 220rem; }
+  #secondT .target--chart svg {
+    margin-top: 2.5rem; }
+
+#secondT .active {
+  fill: #16a085; }
+
+#secondT .target--chart--tooltip {
+  color: #fff;
+  position: absolute;
+  left: -9999px;
+  pointer-events: none;
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+  padding: 1rem;
+  border-radius: 5px;
+  background-color: #222;
+  text-align: center;
+  transition: none;
+  font-size: 1.5rem; }
+  #secondT .target--chart--tooltip::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -10px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent #222 transparent transparent; }
+  #secondT .target--chart--tooltip__p p {
+    display: flex;
+    align-items: center; }

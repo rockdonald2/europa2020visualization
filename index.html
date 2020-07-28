@@ -4,10 +4,96 @@
     <head>
         <meta charset="UTF-8">
         <title>Europa 2020 Indicators</title>
+        <link rel="stylesheet"
+            href="static/css/style.css">
     </head>
 
     <body>
+        <div class="chart">
+            <div class="wrapper">
+                <h1 id="title">Europa 2020</h1>
+                <p id="info">The Europe 2020 strategy is the EU's agenda for growth and jobs for the current decade. It emphasises
+                    smart, sustainable and inclusive growth in order to improve Europe's competitiveness and productivity and
+                    underpin a sustainable social market economy.</p>
+            </div>
 
+            <div id="firstT"
+                class="target">
+                <h2 class="target--header">First target: Employment</h2>
+                <p class="target--description">The Europe 2020 strategy sets out a
+                    target of ‘increasing the employment
+                    rate of the population aged 20 to 64 to
+                    at least 75% by 2020’.</p>
+                <div class="target--chart">
+                    <div class="target--chart--tooltip">
+                        <div class="target--chart--tooltip__p">
+                            <p><span class="target--chart--tooltip__p--circle"></span>2015 <span
+                                    class="target--chart--tooltip__p--value"
+                                    id="v_2015"></span></p>
+                            <p><span class="target--chart--tooltip__p--circle"></span>2016 <span
+                                    class="target--chart--tooltip__p--value"
+                                    id="v_2016"></span></p>
+                            <p><span class="target--chart--tooltip__p--circle"></span>2017 <span
+                                    class="target--chart--tooltip__p--value"
+                                    id="v_2017"></span></p>
+                            <p><span class="target--chart--tooltip__p--circle"></span>2018 <span
+                                    class="target--chart--tooltip__p--value"
+                                    id="v_2018"></span></p>
+                            <p><span class="target--chart--tooltip__p--circle"></span>Target <span
+                                    class="target--chart--tooltip__p--value"
+                                    id="v_target"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="secondT"
+                class="target">
+                <h2 class="target--header">Second target: R&D</h2>
+                <p class="target--description">The Europe 2020 strategy sets the
+                    target of ‘improving the conditions
+                    for innovation, research and
+                    development’, in particular with the
+                    aim of ‘increasing combined public and
+                    private investment in R&D to 3% of GDP’
+                    by 2020.</p>
+                <div class="target--chart">
+                    <div class="target--chart--tooltip">
+                        <div class="target--chart--tooltip__p">
+                            <p>3.27%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="thirdT"
+                class="target">
+                <h2 class="target--header">Third target: Climate change and energy</h2>
+                <p class="target--description">Also known as the ‘20-20-20’ targets,
+                    the Europe 2020 strategy’s three climate
+                    and energy targets are interrelated and
+                    mutually support one another.</p>
+                <div class="target--chart"></div>
+            </div>
+        </div>
+
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <script src="https://d3js.org/d3-queue.v3.min.js"></script>
+        <script src="https://unpkg.com/topojson@3"></script>
+        <script src="https://d3js.org/d3-color.v1.min.js"></script>
+        <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+        <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
+        <script src="static/js/eviz_1-T.js"></script>
+        <script src="static/js/eviz_2-T.js"></script>
+        <script src="static/js/eviz_3-T.js"></script>
+        <script src="static/js/eviz_4-T.js"></script>
+        <script src="static/js/eviz_5-T.js"></script>
+        <script src="static/js/eviz_6-T.js"></script>
+        <script src="static/js/eviz_7-T.js"></script>
+        <script src="static/js/eviz_8-T.js"></script>
+        <script src="static/js/eviz_core.js"></script>
+        <script src="static/js/eviz_main.js"></script>
     </body>
 
 </html>
