@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:ital,wght@0,300;0,700;1,300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400;700&display=swap");
 *,
 *::before,
 *::after {
@@ -10,7 +10,7 @@ html {
   font-size: 10px; }
 
 body {
-  font-family: 'Open Sans Condensed', sans-serif;
+  font-family: 'Barlow Semi Condensed', sans-serif;
   background-color: #f5f6fa;
   color: #2f3640; }
 
@@ -48,6 +48,22 @@ body {
     margin-left: auto; }
   .target--chart {
     position: relative; }
+    .target--chart--tooltip {
+      color: #fff;
+      position: absolute;
+      left: -9999px;
+      pointer-events: none;
+      box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+      padding: 1rem;
+      border-radius: 5px;
+      background-color: #222;
+      text-align: center;
+      transition: none; }
+      .target--chart--tooltip::after {
+        content: "";
+        position: absolute;
+        border-width: 10px;
+        border-style: solid; }
 
 #firstT .target--chart {
   height: 165rem; }
@@ -55,25 +71,11 @@ body {
     margin-top: 2.5rem; }
 
 #firstT .target--chart--tooltip {
-  color: #fff;
-  position: absolute;
-  left: -9999px;
-  pointer-events: none;
-  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
-  padding: 1rem;
-  border-radius: 5px;
-  background-color: #222;
-  text-align: center;
-  transition: none;
   font-size: 1.6rem; }
   #firstT .target--chart--tooltip::after {
-    content: "";
-    position: absolute;
     top: 50%;
     right: 100%;
     margin-top: -10px;
-    border-width: 10px;
-    border-style: solid;
     border-color: transparent #222 transparent transparent; }
   #firstT .target--chart--tooltip__p p {
     display: flex;
@@ -99,33 +101,56 @@ body {
 
 #secondT .target--chart {
   height: 220rem; }
+  #secondT .target--chart--tooltip {
+    font-size: 1.5rem; }
+    #secondT .target--chart--tooltip::after {
+      top: 50%;
+      right: 100%;
+      margin-top: -10px;
+      border-color: transparent #222 transparent transparent; }
+    #secondT .target--chart--tooltip__p p {
+      display: flex;
+      align-items: center; }
   #secondT .target--chart svg {
     margin-top: 2.5rem; }
 
 #secondT .active {
   fill: #16a085; }
 
-#secondT .target--chart--tooltip {
-  color: #fff;
-  position: absolute;
-  left: -9999px;
-  pointer-events: none;
-  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
-  padding: 1rem;
-  border-radius: 5px;
-  background-color: #222;
-  text-align: center;
-  transition: none;
-  font-size: 1.5rem; }
-  #secondT .target--chart--tooltip::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    right: 100%;
-    margin-top: -10px;
-    border-width: 10px;
-    border-style: solid;
-    border-color: transparent #222 transparent transparent; }
-  #secondT .target--chart--tooltip__p p {
-    display: flex;
-    align-items: center; }
+#thirdT .target--chart {
+  padding-top: 2.5rem;
+  height: 200rem; }
+  #thirdT .target--chart #climateMap {
+    width: 100%;
+    height: 60rem;
+    margin: 0 auto;
+    position: relative;
+    margin-bottom: 5rem; }
+    #thirdT .target--chart #climateMap--options {
+      position: absolute; }
+    #thirdT .target--chart #climateMap .target--chart--tooltip {
+      font-size: 1.4rem; }
+      #thirdT .target--chart #climateMap .target--chart--tooltip::after {
+        top: 100%;
+        left: 50%;
+        margin-left: -10px;
+        border-color: #222 transparent transparent transparent; }
+      #thirdT .target--chart #climateMap .target--chart--tooltip__h {
+        margin-bottom: 1rem; }
+      #thirdT .target--chart #climateMap .target--chart--tooltip__p {
+        display: flex; }
+        #thirdT .target--chart #climateMap .target--chart--tooltip__p p:first-of-type {
+          margin-bottom: 1rem;
+          font-weight: bold; }
+        #thirdT .target--chart #climateMap .target--chart--tooltip__p:nth-of-type(2) {
+          margin-top: 2rem; }
+      #thirdT .target--chart #climateMap .target--chart--tooltip .group {
+        display: flex;
+        flex-direction: column; }
+        #thirdT .target--chart #climateMap .target--chart--tooltip .group p {
+          max-width: 12rem; }
+        #thirdT .target--chart #climateMap .target--chart--tooltip .group:first-of-type {
+          margin-right: 2rem; }
+  #thirdT .target--chart #climateCharts {
+    width: 100%;
+    height: 100rem; }

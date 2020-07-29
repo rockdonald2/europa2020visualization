@@ -72,8 +72,42 @@
                 <p class="target--description">Also known as the ‘20-20-20’ targets,
                     the Europe 2020 strategy’s three climate
                     and energy targets are interrelated and
-                    mutually support one another.</p>
-                <div class="target--chart"></div>
+                    mutually support one another. First target is a 20% reduction in GHG emissions
+                    compared with 1990 levels. The second target is a 20% share of renewable energy in
+                    gross final energy consumption. Finally, the third one is a 20% cut in energy consumption
+                    compared to a 2020 business-as-usual
+                    projection.</p>
+                <div class="target--chart">
+                    <div id="climateMap">
+                        <div id="climateMap--options">
+                            <div id="sliderTime"></div>
+                        </div>
+                        <div class="target--chart--tooltip">
+                            <h2 class="target--chart--tooltip__h"></h2>
+                            <div class="target--chart--tooltip__p">
+                                <div class="group">
+                                    <p id="val_ge"></p>
+                                    <p>Greenhouse gas emissions since 1990</p>
+                                </div>
+                                <div class="group">
+                                    <p id="tar_ge"></p>
+                                    <p>Maximum passable limit for 2020</p>
+                                </div>
+                            </div>
+                            <div class="target--chart--tooltip__p">
+                                <div class="group">
+                                    <p id="val_re"></p>
+                                    <p>Share of renewable energy in gross final energy consumption</p>
+                                </div>
+                                <div class="group">
+                                    <p id="tar_re"></p>
+                                    <p>Minimum target for 2020</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="climateCharts"></div>
+                </div>
             </div>
         </div>
 
@@ -83,6 +117,7 @@
         <script src="https://d3js.org/d3-color.v1.min.js"></script>
         <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
         <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+        <script src="https://unpkg.com/d3-simple-slider"></script>
 
         <script src="static/js/eviz_1-T.js"></script>
         <script src="static/js/eviz_2-T.js"></script>

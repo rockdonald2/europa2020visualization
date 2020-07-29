@@ -61,14 +61,14 @@
         });
 
         g.append('rect').attr('width', 30).attr('height', 10).style('fill', function (d) {
-            if (d.value == 'Target') return 'green';
+            if (d.value == 'Target') return eviz.targetColor;
 
             return colorScale(d.value);
         }).attr('y', -5);
-        
+
         g.append('text').text(function (d) {
-            return d.value;
-        }).style('alignment-baseline', 'middle').style('text-anchor', 'start')
+                return d.value;
+            }).style('alignment-baseline', 'middle').style('text-anchor', 'start')
             .attr('dx', '3em').style('font-size', '1.4rem');
     }
 
@@ -97,32 +97,33 @@
         });
 
         for (const y of years) {
-            g.append('rect').attr('height', bar_w).attr('width', function (d) {
-                return scaleX(d[y]);
-            }).attr('transform', function (d, i) {
-                return 'translate(0,' + (years.indexOf(y) * 11) + ')'
-            }).attr('fill', function (d) {
-                if (y == 'target') return 'green';
+            g.append('rect').attr('height', bar_w).attr('width', 0).on('mouseenter', function (d) {
+                    d3.select(this).attr('class', 'active');
 
-                return colorScale(y);
-            }).on('mouseenter', function (d) {
-                d3.select(this).attr('class', 'active');
+                    tooltip.select('p').text(function () {
+                        return d[y] + '%';
+                    });
 
-                tooltip.select('p').text(function () {
-                    return d[y] + '%';
-                });
+                    tooltip.style('left', function () {
+                        return (scaleX(d[y]) + 130) + 'px';
+                    });
+                    tooltip.style('top', function () {
+                        return (scaleY(eviz.codes.indexOf(d['code'])) + years.indexOf(y) * 11 + 38) + 'px';
+                    });
+                }).on('mouseout', function (d) {
+                    d3.select(this).attr('class', '');
 
-                tooltip.style('left', function () {
-                    return (scaleX(d[y]) + 130) + 'px';
-                });
-                tooltip.style('top', function () {
-                    return (scaleY(eviz.codes.indexOf(d['code'])) + years.indexOf(y) * 11 + 38) + 'px';
-                });
-            }).on('mouseout', function (d) {
-                d3.select(this).attr('class', '');
+                    tooltip.style('left', '-9999px');
+                }).attr('transform', function (d, i) {
+                    return 'translate(0,' + (years.indexOf(y) * 11) + ')'
+                })
+                .transition().duration(eviz.TRANS_DURATION).attr('width', function (d) {
+                    return scaleX(d[y]);
+                }).attr('fill', function (d) {
+                    if (y == 'target') return eviz.targetColor;
 
-                tooltip.style('left', '-9999px');
-            });
+                    return colorScale(y);
+                }).attr('rx', 5);
         }
     }
 
