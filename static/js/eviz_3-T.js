@@ -45,6 +45,27 @@
                 return d.properties.id;
             }).attr('d', path).style('fill', '#fff');
 
+        const sliderValues = d3.range(2015, 2019);
+        const sliderTime = d3.sliderBottom().min(d3.min(sliderValues)).max(d3.max(sliderValues)).step(1).width(200).tickFormat(d3.format('d'))
+            .tickValues(sliderValues).on('onchange', function (v) {
+                currentYear = v;
+                update(makeData());
+            }).default(d3.max(sliderValues));
+        const gTime = context.select('#sliderTime').append('svg').attr('width', 250).attr('height', 100).append('g')
+            .attr('transform', 'translate(20, 30)').call(sliderTime).selectAll('text').style('font-size', '1.4rem').style('font-family', 'Barlow Semi Condensed');
+
+        const makeData = function () {
+            return eviz.codes.map(function (c) {
+                return {
+                    'code': c,
+                    'value_ge': eviz.data.europaData[c]['ge_' + currentYear],
+                    'target_ge': eviz.data.europaData[c]['ge_t'],
+                    'value_re': eviz.data.europaData[c]['re_' + currentYear],
+                    'target_re': eviz.data.europaData[c]['re_t']
+                }
+            });
+        }
+
         const makeLegend = function () {
             const legend = svg.append('g').attr('class', 'legend').attr('transform', 'translate(' + width * 0.9 + ', 300)');
             const g = legend.append('g').attr('class', 'rotated').attr('transform', 'translate(-36,-36)');
@@ -59,23 +80,13 @@
                 .append('path').attr('d', 'M0,0L9,3L0,6Z');
             g.append('line').attr('marker-end', 'url(/#marker)').attr('x1', 0).attr('x2', 72).attr('y1', 72).attr('y2', 72).style('stroke', '#000').style('stroke-width', 1.5);
             g.append('line').attr('marker-end', 'url(/#marker)').attr('y2', 0).attr('y1', 72).style('stroke', '#000').style('stroke-width', 1.5);
-            g.append('text').text('Smaller emission').attr('dy', '.71em').attr('transform', 'rotate(-90) translate(-37, -15)').style('text-anchor', 'middle');
-            g.append('text').text('Renewable energy').attr('dy', '.71em').attr('transform', 'translate(36, 78)').style('text-anchor', 'middle');
+            g.append('text').text('Smaller emission').attr('dy', '.71em').attr('transform', 'rotate(-90) translate(-37, -15)').style('text-anchor', 'middle')
+                .style('font-weight', 'bold');
+            g.append('text').text('Renewable energy').attr('dy', '.71em').attr('transform', 'translate(36, 78)').style('text-anchor', 'middle')
+                .style('font-weight', 'bold');
         };
 
-        makeLegend();
-
-        const updateFirst = function () {
-            const data = eviz.codes.map(function (c) {
-                return {
-                    'code': c,
-                    'value_ge': eviz.data.europaData[c]['ge_' + currentYear],
-                    'target_ge': eviz.data.europaData[c]['ge_t'],
-                    'value_re': eviz.data.europaData[c]['re_' + currentYear],
-                    'target_re': eviz.data.europaData[c]['re_t']
-                }
-            });
-
+        const update = function (data) {
             colorX.domain(data.map(function (d) {
                 return d.value_ge;
             }));
@@ -138,7 +149,7 @@
                     const coords = path.centroid(d);
                     const w = parseInt(tooltip.style('width'));
                     const h = parseInt(tooltip.style('height'));
-                    tooltip.style('left', (coords[0] - w / 1.8) + 'px');
+                    tooltip.style('left', (coords[0] - w / 1.85) + 'px');
                     tooltip.style('top', (coords[1] - h * 1.05) + 'px');
                 }).on('mouseout', function () {
                     tooltip.style('left', '-9999px');
@@ -155,25 +166,121 @@
                 });
         }
 
+        update(makeData());
+        makeLegend();
+    }
+
+    const initBubbles = function () {
+        const context = chartContainer.select('#climateBubbles');
+        const context_r = context.node().getBoundingClientRect();
+        const context_w = context_r.width;
+        const context_h = context_r.height;
+
+        const margin = {
+            'top': 20,
+            'left': 20,
+            'right': 10,
+            'bottom': 50
+        };
+
+        const svg = context.append('svg').attr('width', context_w).attr('height', context_h);
+
+        const decideGroup = function (code) {
+            switch (code) {
+                case 'DE':
+                case 'FR':
+                case 'UK':
+                case 'IT':
+                case 'ES':
+                case 'PT':
+                case 'NL':
+                case 'BE':
+                case 'IE':
+                case 'CH':
+                case 'NL':
+                case 'LU':
+                case 'MT':
+                case 'DK':
+                case 'AT':
+                    return 'West';
+
+                case 'PL':
+                case 'CZ':
+                case 'RO':
+                case 'HU':
+                case 'SK':
+                case 'SI':
+                case 'BG':
+                case 'HR':
+                case 'LT':
+                case 'EE':
+                case 'LV':
+                case 'SE':
+                case 'FI':
+                case 'EL':
+                case 'CY':
+                    return 'East';
+
+                default:
+                    return 'Non-EU';
+            }
+        }
+
+        let currentYear = 2018;
+
+        const tooltip = context.select('.target--chart--tooltip');
+
+        const colorScale = d3.scaleOrdinal().domain(['West', 'East', 'Non-EU']).range(["#deebf7", "#9ecae1", "#3182bd"]);
+
         const sliderValues = d3.range(2015, 2019);
         const sliderTime = d3.sliderBottom().min(d3.min(sliderValues)).max(d3.max(sliderValues)).step(1).width(200).tickFormat(d3.format('d'))
             .tickValues(sliderValues).on('onchange', function (v) {
                 currentYear = v;
-                updateFirst();
+                update(makeData());
             }).default(d3.max(sliderValues));
-        const gTime = d3.select('#sliderTime').append('svg').attr('width', 250).attr('height', 100).append('g')
-            .attr('transform', 'translate(20, 30)').call(sliderTime).selectAll('text').style('font-size', '1.4rem');
+        const gTime = context.select('#sliderTime').append('svg').attr('width', 250).attr('height', 50).append('g')
+            .attr('transform', 'translate(20, 10)').call(sliderTime).selectAll('text').style('font-size', '1.4rem').style('font-family', 'Barlow Semi Condensed');
 
-        updateFirst();
-    }
+        const makeData = function () {
+            return eviz.codes.map(function (c) {
+                return {
+                    'name': c,
+                    'group': decideGroup(c),
+                    'value': eviz.data.europaData[c]['ee_' + currentYear]
+                };
+            });
+        }
 
-    const initCharts = function () {
+        const makeLegend = function () {
+            const legend = svg.append('g').attr('class', 'legend').attr('transform', 'translate(25, 100)');
+            const sample = ['DE', 'HU', 'TR'];
 
+            for (const s of sample) {
+                legend.append('circle').attr('r', 20).attr('fill', colorScale(s)).attr('transform', 'translate(0, ' + ((sample.indexOf(s)) * 50) + ')')
+                    .style('fill-opacity', 0.7);
+                legend.append('text').text(decideGroup(s)).attr('transform', 'translate(0, ' + ((sample.indexOf(s)) * 50) + ')')
+                    .style('text-anchor', 'middle').style('alignment-baseline', 'middle').style('font-size', '1.1rem');
+            }
+
+            legend.append('circle').attr('r', 20).attr('fill', eviz.targetColor).attr('transform', 'translate(0, ' + ((sample.length) * 50) + ')')
+                .style('fill-opacity', 0.7);
+            legend.append('text').text('Target').attr('transform', 'translate(0, ' + ((sample.length) * 50) + ')')
+                .style('text-anchor', 'middle').style('alignment-baseline', 'middle').style('font-size', '1.1rem');
+            legend.append('text').text('*Million tonnes of oil equivalent').attr('transform', 'translate(30, -8)');
+            legend.append('text').text('Circle radius is proportional to emission').attr('transform', 'translate(30, 12)');
+        }
+
+        const update = function (data) {
+            
+        }
+
+        update(makeData());
+        makeLegend();
     }
 
     eviz.initThird = function () {
         initMap();
-        initCharts();
+        initBubbles();
     };
 
 }(window.eviz = window.eviz || {}));

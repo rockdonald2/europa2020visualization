@@ -85,15 +85,15 @@
             p.select('#v_' + y).text(d[y] + '%');
         }
 
-        let difference = -20;
+        let difference = -10;
         if (d['target'] != null) {
             p.select('p:nth-of-type(5)').style('display', 'flex');
         } else {
             p.select('p:nth-of-type(5)').style('display', 'none');
-            difference = -35;
+            difference = -20;
         }
 
-        tooltip.style('left', '100px');
+        tooltip.style('left', '110px');
         tooltip.style('top', (scaleY(i) - difference) + 'px')
     };
 
