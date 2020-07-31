@@ -6,8 +6,6 @@
     const width = boundingRect.width;
     const height = boundingRect.height;
 
-    let path = null;
-
     const initMap = function () {
         const context = chartContainer.select('#climateMap');
         const context_r = context.node().getBoundingClientRect();
@@ -16,7 +14,7 @@
 
         const svg = context.append('svg').attr('width', context_w).attr('height', context_h);
 
-        path = d3.geoPath().projection(d3.geoIdentity().reflectY(true).fitSize([context_w, context_h], topojson.feature(eviz.data.mapData, eviz.data.mapData.objects.gra)));
+        const path = d3.geoPath().projection(d3.geoIdentity().reflectY(true).fitSize([context_w, context_h], topojson.feature(eviz.data.mapData, eviz.data.mapData.objects.gra)));
 
         const colors = [
             "#b8d6be", "#90b2b3", "#567994",
@@ -44,6 +42,11 @@
             .data(topojson.feature(eviz.data.mapData, eviz.data.mapData.objects.nutsrg).features).enter().append('path').attr('id', function (d) {
                 return d.properties.id;
             }).attr('d', path).style('fill', '#fff');
+
+        const boundaries = svg.append('g').attr('transform', 'translate(0, 30)').attr('class', 'boundaries').selectAll('path')
+            .data(topojson.feature(eviz.data.mapData, eviz.data.mapData.objects.nutsbn).features).enter().append('path').attr('d', path)
+            .style('stroke', '#666').style('stroke-opacity', .1).style('fill', 'transparent')
+            .style('pointer-events', 'none');
 
         const sliderValues = d3.range(2015, 2019);
         const sliderTime = d3.sliderBottom().min(d3.min(sliderValues)).max(d3.max(sliderValues)).step(1).width(200).tickFormat(d3.format('d'))
@@ -80,10 +83,8 @@
                 .append('path').attr('d', 'M0,0L9,3L0,6Z');
             g.append('line').attr('marker-end', 'url(/#marker)').attr('x1', 0).attr('x2', 72).attr('y1', 72).attr('y2', 72).style('stroke', '#000').style('stroke-width', 1.5);
             g.append('line').attr('marker-end', 'url(/#marker)').attr('y2', 0).attr('y1', 72).style('stroke', '#000').style('stroke-width', 1.5);
-            g.append('text').text('Smaller emission').attr('dy', '.71em').attr('transform', 'rotate(-90) translate(-37, -15)').style('text-anchor', 'middle')
-                .style('font-weight', 'bold');
-            g.append('text').text('Renewable energy').attr('dy', '.71em').attr('transform', 'translate(36, 78)').style('text-anchor', 'middle')
-                .style('font-weight', 'bold');
+            g.append('text').text('Smaller emission').attr('dy', '.71em').attr('transform', 'rotate(-90) translate(-37, -15)').style('text-anchor', 'middle');
+            g.append('text').text('Renewable energy').attr('dy', '.71em').attr('transform', 'translate(36, 78)').style('text-anchor', 'middle');
         };
 
         const update = function (data) {
@@ -130,7 +131,7 @@
                     }).html((val_ge != 'Not available' ? (val_ge > 0 ? '&uarr;' : '&darr;') : '') + ' ' + val_ge + (val_ge != 'Not available' ? '%' : ''));
                     p.select('p#val_re').style('color', function () {
                         if (val_re == 'Not available') return '#aaa';
-                        if (tar_re == 'None') return val_re > 20 ? 'green' : 'red';
+                        if (tar_re == 'None') return val_re >= 20 ? 'green' : 'red';
 
                         return val_re > tar_re ? 'green' : 'red';
                     }).html(val_re + (val_re != 'Not available' ? '%' : ''));
@@ -143,7 +144,7 @@
                     p.select('p#tar_re').style('color', function () {
                         if (tar_re == 'None') return '#aaa';
 
-                        return tar_re > 20 ? 'green' : 'red';
+                        return tar_re >= 20 ? 'green' : 'red';
                     }).html(tar_re + (tar_re != 'None' ? '%' : ''))
 
                     const coords = path.centroid(d);
@@ -162,7 +163,7 @@
                         return color([val_ge, val_re]);
                     }
 
-                    return '#aaa';
+                    return '#f5f6fa';
                 });
         }
 
@@ -176,61 +177,11 @@
         const context_w = context_r.width;
         const context_h = context_r.height;
 
-        const margin = {
-            'top': 20,
-            'left': 20,
-            'right': 10,
-            'bottom': 50
-        };
-
         const svg = context.append('svg').attr('width', context_w).attr('height', context_h);
-
-        const decideGroup = function (code) {
-            switch (code) {
-                case 'DE':
-                case 'FR':
-                case 'UK':
-                case 'IT':
-                case 'ES':
-                case 'PT':
-                case 'NL':
-                case 'BE':
-                case 'IE':
-                case 'CH':
-                case 'NL':
-                case 'LU':
-                case 'MT':
-                case 'DK':
-                case 'AT':
-                    return 'West';
-
-                case 'PL':
-                case 'CZ':
-                case 'RO':
-                case 'HU':
-                case 'SK':
-                case 'SI':
-                case 'BG':
-                case 'HR':
-                case 'LT':
-                case 'EE':
-                case 'LV':
-                case 'SE':
-                case 'FI':
-                case 'EL':
-                case 'CY':
-                    return 'East';
-
-                default:
-                    return 'Non-EU';
-            }
-        }
 
         let currentYear = 2018;
 
         const tooltip = context.select('.target--chart--tooltip');
-
-        const colorScale = d3.scaleOrdinal().domain(['West', 'East', 'Non-EU']).range(["#deebf7", "#9ecae1", "#3182bd"]);
 
         const sliderValues = d3.range(2015, 2019);
         const sliderTime = d3.sliderBottom().min(d3.min(sliderValues)).max(d3.max(sliderValues)).step(1).width(200).tickFormat(d3.format('d'))
@@ -245,10 +196,22 @@
             return eviz.codes.map(function (c) {
                 return {
                     'name': c,
-                    'group': decideGroup(c),
-                    'value': eviz.data.europaData[c]['ee_' + currentYear]
+                    'group': eviz.decideGroup(c),
+                    'value': eviz.data.europaData[c]['ee_' + currentYear],
+                    'target': eviz.data.europaData[c]['ee_t']
                 };
             });
+        }
+
+        const pack = function (data) {
+            return d3.pack().size([context_w, context_h])
+                .padding(3).radius(function (r) {
+                    return radiusScale(r.value);
+                })(d3.hierarchy({
+                    children: data
+                }).sum(function (d) {
+                    return d.value;
+                }));
         }
 
         const makeLegend = function () {
@@ -258,7 +221,7 @@
             for (const s of sample) {
                 legend.append('circle').attr('r', 20).attr('fill', colorScale(s)).attr('transform', 'translate(0, ' + ((sample.indexOf(s)) * 50) + ')')
                     .style('fill-opacity', 0.7);
-                legend.append('text').text(decideGroup(s)).attr('transform', 'translate(0, ' + ((sample.indexOf(s)) * 50) + ')')
+                legend.append('text').text(eviz.decideGroup(s)).attr('transform', 'translate(0, ' + ((sample.indexOf(s)) * 50) + ')')
                     .style('text-anchor', 'middle').style('alignment-baseline', 'middle').style('font-size', '1.1rem');
             }
 
@@ -266,12 +229,131 @@
                 .style('fill-opacity', 0.7);
             legend.append('text').text('Target').attr('transform', 'translate(0, ' + ((sample.length) * 50) + ')')
                 .style('text-anchor', 'middle').style('alignment-baseline', 'middle').style('font-size', '1.1rem');
-            legend.append('text').text('*Million tonnes of oil equivalent').attr('transform', 'translate(30, -8)');
-            legend.append('text').text('Circle radius is proportional to emission').attr('transform', 'translate(30, 12)');
+
+            legend.append('text')
+                .text('*Million tonnes of oil equivalent')
+                .attr('transform', 'translate(30, -8)');
+
+            legend.append('text')
+                .text('Circle radius is proportional to emission')
+                .attr('transform', 'translate(30, 12)');
         }
 
+        const colorScale = d3.scaleOrdinal().domain(['West', 'East', 'Non-EU']).range(["#deebf7", "#9ecae1", "#3182bd"]);
+        const scaleX = d3.scalePoint()
+            .range([0, context_w / 2])
+            .padding(0.5)
+            .align(1);
+        const scaleY = d3.scaleBand()
+            .range([0, context_h / 2])
+            .paddingInner(0.3);
+        const radiusScale = d3.scalePow().exponent(0.5)
+            .domain([0, 300])
+            .range([0, d3.min([scaleY.bandwidth(), scaleX.step()]) / 2.5]);
+
+        const bubbleGroup = svg.append('g').attr('class', 'bubbleGroup');
+
         const update = function (data) {
-            
+            const root = pack(data);
+
+            const circle = bubbleGroup.selectAll('circle')
+                .data(root.leaves(), function (d) {
+                    return d.data.name;
+                });
+
+            const text = bubbleGroup.selectAll('text')
+                .data(root.leaves(), function (d) {
+                    return d.data.name;
+                });
+
+            circle.transition().duration(eviz.TRANS_DURATION)
+                .style('fill', function (d) {
+                    return colorScale(d.data.group);
+                })
+                .attr('r', function (d) {
+                    return d.r;
+                })
+                .attr('cx', function (d) {
+                    return d.x;
+                })
+                .attr('cy', function (d) {
+                    return d.y;
+                });
+
+            text.transition().duration(eviz.TRANS_DURATION)
+                .attr('x', function (d) {
+                    return d.x;
+                })
+                .attr('y', function (d) {
+                    return d.y;
+                });
+
+            circle.enter().append('circle').attr('r', 1e-6).attr('cx', function (d) {
+                    return d.x;
+                })
+                .attr('cy', function (d) {
+                    return d.y;
+                }).style('fill', '#fff')
+                .on('mouseenter', function (d) {
+                    d3.select(this).classed('active', true);
+
+                    const p = tooltip.select('p');
+
+                    p.select('span#val').text(d.value).style('color', function () {
+                        if (d.data.target == null) return '#fff';
+
+                        return d.value >= d.data.target ? 'red' : 'green';
+                    });
+                    p.select('span#year').text(currentYear);
+
+                    const mouseCoords = d3.mouse(context.node());
+                    const w = parseInt(tooltip.style('width'));
+                    const h = parseInt(tooltip.style('height'));
+
+                    const side = ((mouseCoords[0] + w) < (context_w - 100)) ? (mouseCoords[0] + w / 2) : (mouseCoords[0] - w * 1.5);
+                    tooltip.style('left', side + 'px');
+                    tooltip.style('top', (mouseCoords[1]) + 'px');
+
+                    if (d.data.target == null) {
+                        p.select('span#tar').html('');
+                        return;
+                    } else p.select('span#tar').html(', with a maximum passable limit of ' + d.data.target + ' MTOE');
+
+                    d3.select(this.parentNode).append('circle').style('fill', eviz.targetColor).style('fill-opacity', .6)
+                        .attr('id', 'target').attr('r', function () {
+                            return radiusScale(d.data.target);
+                        }).attr('cx', function () {
+                            return d.x;
+                        }).attr('cy', function () {
+                            return d.y;
+                        }).style('pointer-events', 'none');
+                }).on('mouseout', function (d) {
+                    d3.select(this).classed('active', false);
+
+                    tooltip.style('left', '-9999px');
+
+                    if (d.data.target == null) return;
+
+                    d3.select(this.parentNode).select('#target').remove();
+                })
+                .transition().duration(eviz.TRANS_DURATION).style("fill", function (d) {
+                    return colorScale(d.data.group);
+                })
+                .attr("r", function (d) {
+                    return d.r
+                });
+
+            text.enter().append('text').attr('opacity', 1e-6).attr('x', function (d) {
+                    return d.x;
+                })
+                .attr('y', function (d) {
+                    return d.y;
+                }).text(function (d) {
+                    return eviz.countries[eviz.codes.indexOf(d.data.name)];
+                })
+                .transition().duration(eviz.TRANS_DURATION).attr('opacity', 1)
+                    .style('text-anchor', 'middle').style('alignment-baseline', 'middle').style('pointer-events', 'none')
+                    .style('font-size', '1.3rem');
         }
 
         update(makeData());

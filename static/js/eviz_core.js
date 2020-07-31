@@ -10,9 +10,52 @@
 
     eviz.TRANS_DURATION = 1000;
 
+    eviz.decideGroup = function (code) {
+        switch (code) {
+            case 'DE':
+            case 'FR':
+            case 'UK':
+            case 'IT':
+            case 'ES':
+            case 'PT':
+            case 'NL':
+            case 'BE':
+            case 'IE':
+            case 'CH':
+            case 'NL':
+            case 'LU':
+            case 'MT':
+            case 'DK':
+            case 'AT':
+            case 'LI':
+                return 'West';
+
+            case 'PL':
+            case 'CZ':
+            case 'RO':
+            case 'HU':
+            case 'SK':
+            case 'SI':
+            case 'BG':
+            case 'HR':
+            case 'LT':
+            case 'EE':
+            case 'LV':
+            case 'SE':
+            case 'FI':
+            case 'EL':
+            case 'CY':
+                return 'East';
+
+            default:
+                return 'Non-EU';
+        }
+    }
+
     eviz.init = function () {
         eviz.initFirst();
         eviz.initSecond();
         eviz.initThird();
+        eviz.initFourth();
     }
 }(window.eviz = window.eviz || {}));

@@ -111,8 +111,8 @@
                             <div id="sliderTime"></div>
                         </div>
                          <div class="target--chart--tooltip">
-                             <p class="target--chart--tooltip__p"><span id="val">49.8</span> MTOE* of primary energy consumption in
-                                 <span id="year">2018</span></p>
+                             <p class="target--chart--tooltip__p"><span id="val"></span> MTOE* of primary energy consumption in
+                                 <span id="year"></span><span id="tar"></span> </p>
                          </div>
                     </div>
                 </div>
@@ -129,7 +129,33 @@
                     completed tertiary education to at least
                     40% by 2020.</p>
                 <div class="target--chart">
-                   
+                   <div id="educationMap">
+                       <div class="target--chart--tooltip">
+                           <h2 class="target--chart--tooltip__h"></h2>
+                           <div class="target--chart--tooltip__p">
+                               <p>Percentage of the population aged 30-34 with tertiary studies in <span id="year"></span> was
+                                   <span id="val"></span>%<span id="tar"></span></p>
+                           </div>
+                       </div>
+                   </div>
+                   <div id="educationChart">
+                       <div class="target--chart--tooltip">
+                           <div class="target--chart--tooltip__p"><p></p></div>
+                       </div>
+                   </div>
+                </div>
+            </div>
+
+            <div id="fifthT"
+                class="target">
+                <h2 class="target--header">Fifth target: Poverty and social exclusion</h2>
+                <p class="target--description">The Europe 2020 strategy has set the
+                    target of ‘lifting at least 20 million
+                    people out of the risk of poverty or
+                    social exclusion’ by 2020 compared with
+                    the year 2008.</p>
+                <div class="target--chart">
+                    
                 </div>
             </div>
         </div>
@@ -141,6 +167,7 @@
         <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
         <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
         <script src="https://unpkg.com/d3-simple-slider"></script>
+        <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3-scale-radial.js"></script>
 
         <script src="static/js/eviz_1-T.js"></script>
         <script src="static/js/eviz_2-T.js"></script>

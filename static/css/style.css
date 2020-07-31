@@ -160,21 +160,49 @@ body {
     #thirdT .target--chart #climateBubbles--options {
       position: absolute; }
     #thirdT .target--chart #climateBubbles circle.active {
-      stroke: #333; }
+      stroke: #333;
+      stroke-opacity: .6; }
     #thirdT .target--chart #climateBubbles .target--chart--tooltip {
       font-size: 1.4rem;
       max-width: 16rem; }
       #thirdT .target--chart #climateBubbles .target--chart--tooltip::after {
         display: none; }
-      #thirdT .target--chart #climateBubbles .target--chart--tooltip span {
-        /* display: block; */
+      #thirdT .target--chart #climateBubbles .target--chart--tooltip span#val,
+      #thirdT .target--chart #climateBubbles .target--chart--tooltip span#year {
         font-size: 1.6rem;
         font-weight: bold; }
-        #thirdT .target--chart #climateBubbles .target--chart--tooltip span:first-of-type {
-          margin-bottom: .5rem; }
-        #thirdT .target--chart #climateBubbles .target--chart--tooltip span:last-of-type {
-          margin-top: .5rem; }
 
 #fourthT .target--chart {
   padding-top: 2.5rem;
-  height: 100rem; }
+  height: 140rem; }
+  #fourthT .target--chart #educationMap {
+    height: 70rem;
+    position: relative; }
+    #fourthT .target--chart #educationMap .target--chart--tooltip {
+      font-size: 1.4rem;
+      max-width: 20rem; }
+      #fourthT .target--chart #educationMap .target--chart--tooltip::after {
+        top: 50%;
+        right: 100%;
+        margin-top: -10px;
+        border-color: transparent #222 transparent transparent; }
+      #fourthT .target--chart #educationMap .target--chart--tooltip__h {
+        margin-bottom: 1rem; }
+      #fourthT .target--chart #educationMap .target--chart--tooltip__p p span#year,
+      #fourthT .target--chart #educationMap .target--chart--tooltip__p p span#val {
+        font-weight: bold; }
+  #fourthT .target--chart #educationChart {
+    height: 70rem;
+    position: relative; }
+    #fourthT .target--chart #educationChart .target--chart--tooltip {
+      font-size: 1.4rem; }
+      #fourthT .target--chart #educationChart .target--chart--tooltip::after {
+        display: none; }
+  #fourthT .target--chart g.countries path.active {
+    fill: #16a085 !important; }
+  #fourthT .target--chart g.barGroup path.active {
+    fill: #16a085 !important; }
+
+#fifthT .target--chart {
+  padding-top: 2.5rem;
+  height: 10rem; }
