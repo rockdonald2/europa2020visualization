@@ -155,7 +155,8 @@
                 }).on('mouseout', function () {
                     tooltip.style('left', '-9999px');
                 })
-                .transition().duration(eviz.TRANS_DURATION).style('fill', function (d) {
+                .transition().duration(eviz.TRANS_DURATION).delay(eviz.TRANS_DURATION / 2)
+                .style('fill', function (d) {
                     if (eviz.data.europaData.hasOwnProperty(d.properties.id)) {
                         const val_ge = data[eviz.codes.indexOf(d.properties.id)].value_ge;
                         const val_re = data[eviz.codes.indexOf(d.properties.id)].value_re;
@@ -266,7 +267,7 @@
                     return d.data.name;
                 });
 
-            circle.transition().duration(eviz.TRANS_DURATION)
+            circle.transition().duration(eviz.TRANS_DURATION).delay(eviz.TRANS_DURATION / 2)
                 .style('fill', function (d) {
                     return colorScale(d.data.group);
                 })
@@ -280,7 +281,7 @@
                     return d.y;
                 });
 
-            text.transition().duration(eviz.TRANS_DURATION)
+            text.transition().duration(eviz.TRANS_DURATION).delay(eviz.TRANS_DURATION / 2)
                 .attr('x', function (d) {
                     return d.x;
                 })
@@ -336,7 +337,8 @@
 
                     d3.select(this.parentNode).select('#target').remove();
                 })
-                .transition().duration(eviz.TRANS_DURATION).style("fill", function (d) {
+                .transition().duration(eviz.TRANS_DURATION).delay(eviz.TRANS_DURATION / 2)
+                .style("fill", function (d) {
                     return colorScale(d.data.group);
                 })
                 .attr("r", function (d) {
@@ -351,7 +353,8 @@
                 }).text(function (d) {
                     return eviz.countries[eviz.codes.indexOf(d.data.name)];
                 })
-                .transition().duration(eviz.TRANS_DURATION).attr('opacity', 1)
+                .transition().duration(eviz.TRANS_DURATION).delay(eviz.TRANS_DURATION / 2)
+                .attr('opacity', 1)
                     .style('text-anchor', 'middle').style('alignment-baseline', 'middle').style('pointer-events', 'none')
                     .style('font-size', '1.3rem');
         }

@@ -141,7 +141,7 @@
                     return 'translate(' + path.centroid(d.geo) + ') rotate(180)';
                 })
                 .style('pointer-events', 'none')
-                .transition().duration(eviz.TRANS_DURATION)
+                .transition().duration(eviz.TRANS_DURATION).delay(eviz.TRANS_DURATION / 2)
                 .attr('y2', function (d) {
                     return heightScale(d.value);
                 });
@@ -164,7 +164,7 @@
                     return path.centroid(d.geo)[0];
                 })
                 .style('pointer-events', 'none')
-                .transition().duration(eviz.TRANS_DURATION)
+                .transition().duration(eviz.TRANS_DURATION).delay(eviz.TRANS_DURATION / 2)
                 .attr('cy', function (d) {
                     return path.centroid(d.geo)[1] - heightScale(d.value);
                 });
@@ -306,7 +306,7 @@
 
                     tooltip.style('left', '-9999px');
                 })
-                .transition().duration(eviz.TRANS_DURATION)
+                .transition().duration(eviz.TRANS_DURATION).delay(eviz.TRANS_DURATION / 2)
                 .attr('d', arc);
 
             const labels = labelGroup.selectAll('.label').data(data)
@@ -315,7 +315,7 @@
                 .attr('text-anchor', function (d) {
                     return (scaleCircle(d.country) + scaleCircle.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "end" : "start";
                 }).merge(labels)
-                .transition().duration(eviz.TRANS_DURATION)
+                .transition().duration(eviz.TRANS_DURATION).delay(eviz.TRANS_DURATION / 2)
                 .attr('transform', function (d) {
                     const temp = ((scaleCircle(d.country) + scaleCircle.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI) ? ("rotate(" + (((scaleCircle(d.country) + scaleCircle.bandwidth() / 2) * 180 / Math.PI - 90) + 180) + ")" + "translate(-" + (scaleHeight(d.value) + 10) + ",0)") : ("rotate(" + ((scaleCircle(d.country) + scaleCircle.bandwidth() / 2) * 180 / Math.PI - 90) + ")") + "translate(" + (scaleHeight(d.value) + 10) + ",0)";
 

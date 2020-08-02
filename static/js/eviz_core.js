@@ -57,5 +57,6 @@
         eviz.initSecond();
         eviz.initThird();
         eviz.initFourth();
+        eviz.initFifth();
     }
 }(window.eviz = window.eviz || {}));

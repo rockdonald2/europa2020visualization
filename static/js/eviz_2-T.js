@@ -117,7 +117,8 @@
                 }).attr('transform', function (d, i) {
                     return 'translate(0,' + (years.indexOf(y) * 11) + ')'
                 })
-                .transition().duration(eviz.TRANS_DURATION).attr('width', function (d) {
+                .transition().duration(eviz.TRANS_DURATION).delay(eviz.TRANS_DURATION / 2)
+                .attr('width', function (d) {
                     return scaleX(d[y]);
                 }).attr('fill', function (d) {
                     if (y == 'target') return eviz.targetColor;

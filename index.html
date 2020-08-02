@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 
+    <script>
+        window.onbeforeunload = function () {
+            window.scrollTo(0, 0);
+        }
+    </script>
+
     <head>
         <meta charset="UTF-8">
         <title>Europa 2020 Indicators</title>
@@ -8,7 +14,12 @@
             href="static/css/style.css">
     </head>
 
-    <body>
+    <body class="hidden">
+        <div class="overlay show">
+            <p>Currently fetching data...</p>
+            <p>This vizualization is optimized for min screen pixel-width of 1100px.</p>
+        </div>
+
         <div class="chart">
             <div class="wrapper">
                 <h1 id="title">Europa 2020</h1>
@@ -110,10 +121,10 @@
                         <div id="climateBubbles--options">
                             <div id="sliderTime"></div>
                         </div>
-                         <div class="target--chart--tooltip">
-                             <p class="target--chart--tooltip__p"><span id="val"></span> MTOE* of primary energy consumption in
-                                 <span id="year"></span><span id="tar"></span> </p>
-                         </div>
+                        <div class="target--chart--tooltip">
+                            <p class="target--chart--tooltip__p"><span id="val"></span> MTOE* of primary energy consumption in
+                                <span id="year"></span><span id="tar"></span> </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -129,20 +140,22 @@
                     completed tertiary education to at least
                     40% by 2020.</p>
                 <div class="target--chart">
-                   <div id="educationMap">
-                       <div class="target--chart--tooltip">
-                           <h2 class="target--chart--tooltip__h"></h2>
-                           <div class="target--chart--tooltip__p">
-                               <p>Percentage of the population aged 30-34 with tertiary studies in <span id="year"></span> was
-                                   <span id="val"></span>%<span id="tar"></span></p>
-                           </div>
-                       </div>
-                   </div>
-                   <div id="educationChart">
-                       <div class="target--chart--tooltip">
-                           <div class="target--chart--tooltip__p"><p></p></div>
-                       </div>
-                   </div>
+                    <div id="educationMap">
+                        <div class="target--chart--tooltip">
+                            <h2 class="target--chart--tooltip__h"></h2>
+                            <div class="target--chart--tooltip__p">
+                                <p>Percentage of the population aged 30-34 with tertiary studies in <span id="year"></span> was
+                                    <span id="val"></span>%<span id="tar"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="educationChart">
+                        <div class="target--chart--tooltip">
+                            <div class="target--chart--tooltip__p">
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -155,7 +168,11 @@
                     social exclusion’ by 2020 compared with
                     the year 2008.</p>
                 <div class="target--chart">
-                    
+                    <div class="target--chart--tooltip">
+                        <div class="target--chart--tooltip__p">
+                            <p></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

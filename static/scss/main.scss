@@ -8,6 +8,11 @@
     box-sizing: inherit;
 }
 
+path,
+line {
+    shape-rendering: geometricPrecision;
+}
+
 html {
     font-size: 10px;
 }
@@ -17,6 +22,42 @@ body {
         sans-serif;
     background-color: #f5f6fa;
     color: #2f3640;
+}
+
+.hidden {
+    overflow: hidden;
+}
+
+.overlay {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    left: 0vw;
+    top: 0vh;
+    transform: translateX(-9999px);
+    background-color: #fff;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    opacity: 0;
+    transition: all 1s ease-in-out;
+
+    p:nth-child(1) {
+        margin-bottom: 2rem;
+    }
+
+    p:nth-child(2) {
+        color: hsl(0, 0%, 60%);
+        opacity: 0.5;
+    }
+
+    &.show {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
 .chart {
@@ -317,6 +358,7 @@ body {
 
                 &__p {
                     p {
+
                         span#year,
                         span#val {
                             font-weight: bold;
@@ -350,8 +392,18 @@ body {
 }
 
 #fifthT {
+    margin-bottom: 10rem;
+
     .target--chart {
         padding-top: 2.5rem;
-        height: 10rem;
+        height: 120rem;
+
+        &--tooltip {
+            font-size: 1.4rem;
+
+            &::after {
+                display: none;
+            }
+        }
     }
 }

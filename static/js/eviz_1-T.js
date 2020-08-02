@@ -131,14 +131,16 @@
                 if (y == 'target') return eviz.targetColor;
 
                 return colorScale(y);
-            }).style('opacity', 0.7).transition().duration(eviz.TRANS_DURATION).attr('cx', function (d) {
+            }).style('opacity', 0.7).transition().duration(eviz.TRANS_DURATION).delay(eviz.TRANS_DURATION / 2)
+            .attr('cx', function (d) {
                 return scaleX(d[y]);
             });
         }
 
         g.insert('line', function (d) {
             return d3.select('#' + d.code + '_first').node();
-        }).transition().duration(eviz.TRANS_DURATION).attr('x1', 0).attr('x2', 0).attr('x1', function (d) {
+        }).transition().duration(eviz.TRANS_DURATION).delay(eviz.TRANS_DURATION / 2)
+        .attr('x1', 0).attr('x2', 0).attr('x1', function (d) {
             let min = 100;
             for (const y of years) {
                 if (y == 'target') continue;

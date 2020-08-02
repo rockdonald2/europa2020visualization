@@ -16,7 +16,12 @@
         eviz.data.mapData = mapData;
         eviz.data.mapPoints = mapPoints;
 
-        eviz.init();
+        setTimeout(function () {
+            eviz.init();
+
+            d3.select('body').attr('class', '');
+            d3.select('.overlay').attr('class', 'overlay');
+        }, 2000);
     }
 
 } (window.eviz = window.eviz || {}));
