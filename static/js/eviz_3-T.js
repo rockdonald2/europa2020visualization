@@ -81,8 +81,8 @@
 
             g.append('marker').attr('id', 'marker').attr('markerHeight', 10).attr('markerWidth', 10).attr('refX', 6).attr('refY', 3).attr('orient', 'auto')
                 .append('path').attr('d', 'M0,0L9,3L0,6Z');
-            g.append('line').attr('marker-end', 'url(/#marker)').attr('x1', 0).attr('x2', 72).attr('y1', 72).attr('y2', 72).style('stroke', '#000').style('stroke-width', 1.5);
-            g.append('line').attr('marker-end', 'url(/#marker)').attr('y2', 0).attr('y1', 72).style('stroke', '#000').style('stroke-width', 1.5);
+            g.append('line').attr('marker-end', 'url(#marker)').attr('x1', 0).attr('x2', 72).attr('y1', 72).attr('y2', 72).style('stroke', '#000').style('stroke-width', 1.5);
+            g.append('line').attr('marker-end', 'url(#marker)').attr('y2', 0).attr('y1', 72).style('stroke', '#000').style('stroke-width', 1.5);
             g.append('text').text('Smaller emission').attr('dy', '.71em').attr('transform', 'rotate(-90) translate(-37, -15)').style('text-anchor', 'middle');
             g.append('text').text('Renewable energy').attr('dy', '.71em').attr('transform', 'translate(36, 78)').style('text-anchor', 'middle');
         };
